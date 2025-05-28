@@ -5,3 +5,5 @@
 3.  Jalankan : git config --globar user.name="nama kalian"
 4.  Jalankan : git config --globar user.email emailkalian@blablabla.com
 4.  Kemudian yang terakhir jalankan cloning.
+
+Menambahkan  counter untuk uts 
