@@ -39,6 +39,21 @@ if(isset($_POST["nama"]) && isset($_POST["umur"])){
     $_SESSION["daftar"][]=$daftar;
 }
 
+$data_daftar = [
+    "nama" => "",
+    "umur" => "",
+];
+
+$target = "dashboard.php";
+if(isset($_GET["index"])){
+    // disini dianggap terjadi proses update
+    $target = "update.php?index=" . $_GET["index"];
+    if($_GET["index"] != null) {
+        $index = $_GET["index"];
+        $data_daftar = $_SESSION["daftar"][$index];
+    }
+}
+
 ?>
 <html>
     <head>
@@ -88,18 +103,18 @@ if(isset($_POST["nama"]) && isset($_POST["umur"])){
     </head>
     <body>
         <h1><?php echo "Selamat datang " . $username . " ke-" . $count  ; ?></h1>
-            <form action="dashboard.php" method="post">
+            <form action="<?php echo $target; ?>" method="post">
          <table>
             <tr>
                 <td colspan="2" style="text-align: center;" >DAFTAR</td>
             </tr>
             <tr>
                 <td>Nama</td>
-                <td><input type="text" name="nama" /></td>
+                <td><input type="text" name="nama" value="<?php echo $data_daftar["nama"] ?>" /></td>
             </tr>
             <tr>
                 <td>Umur</td>
-                <td><input type="text" name="umur" /></td>
+                <td><input type="number" name="umur" value="<?php echo $data_daftar["umur"] ?>"/></td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: center;">
@@ -110,15 +125,32 @@ if(isset($_POST["nama"]) && isset($_POST["umur"])){
                 </td>
             </tr>
         </table>
-        <table>
+        <table border="1">
             <tr>
                 <td>Nama</td>
                 <td>Umur</td>
+                <td>Keterangan</td>
+                <td>Aksi</td>
             </tr>
-                <?php foreach($_SESSION["daftar"] as $daftar): ?>
+                <?php foreach($_SESSION["daftar"] as $index => $daftar): ?>
                  <tr>
                     <td><?php echo $daftar["nama"] ?></td>
                     <td><?php echo $daftar["umur"] ?></td>
+                    <td><?php
+                            if($daftar["umur"] < 20){
+                                echo "Remaja";
+                            }elseif($daftar["umur"] >= 20 && $daftar["umur"] < 40){
+                                echo "Dewasa";
+                            }elseif($daftar["umur"] >= 40){
+                                echo "tua";
+                            }else{
+                                echo "Tidak Diketahui";
+                            }
+                        ?>
+                    </td>
+                    <td>
+                        <a href="hapus.php?index=<?php echo $index; ?>">hapus</a> <a href="dashboard.php?index=<?php echo $index; ?>">ubah</a>
+                    </td>
                  </tr>
                  <?php endforeach; ?>
         </table>
