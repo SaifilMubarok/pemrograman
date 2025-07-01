@@ -1,7 +1,6 @@
 <?php
 session_start();
 if (!isset($_SESSION['username'])) {
-    // User is already logged in, redirect to welcome page  
     header("Location: login.php");
 
     exit();
@@ -10,20 +9,17 @@ if (!isset($_SESSION['username'])) {
 
 $username = $_SESSION['username'];
 
-// Buat nama file untuk menyimpan jumlah login per user
 $file = "login_count_{$username}.txt";
 
-// Cek apakah file sudah ada, jika ya ambil isinya, kalau belum mulai dari 0
 if (file_exists($file)) {
     $count = (int)file_get_contents($file);
 } else {
     $count = 0;
 }
 
-// Tambah 1 setiap kali halaman dibuka
+
 $count++;
 
-// Simpan kembali ke file
 file_put_contents($file, $count);
 
 if(!isset($_SESSION["daftar"])){
@@ -46,7 +42,7 @@ $data_daftar = [
 
 $target = "dashboard.php";
 if(isset($_GET["index"])){
-    // disini dianggap terjadi proses update
+
     $target = "update.php?index=" . $_GET["index"];
     if($_GET["index"] != null) {
         $index = $_GET["index"];
@@ -78,7 +74,7 @@ if(isset($_GET["index"])){
                 align-items: center;
                 height: 100vh;
                 background-size: cover;
-                background-image: url("https://cdn.arstechnica.net/wp-content/uploads/2023/06/bliss-update-1440x960.jpg");
+                background-image: url("https://ekonomi.usm.ac.id/wp-content/uploads/2022/09/Universitas-Semarang_USM-scaled.jpg");
             }
             table{
                 background-color: white;
@@ -102,8 +98,9 @@ if(isset($_GET["index"])){
         </style>
     </head>
     <body>
-        <h1><?php echo "Selamat datang " . $username . " ke-" . $count  ; ?></h1>
-            <form action="<?php echo $target; ?>" method="post">
+        <h1><?php echo "Selamat datang di Universitas Semarang ke-" . $count; ?></h1>
+        <form action="<?php echo $target; ?>" method="post">
+
          <table>
             <tr>
                 <td colspan="2" style="text-align: center;" >DAFTAR</td>
@@ -136,10 +133,13 @@ if(isset($_GET["index"])){
                  <tr>
                     <td><?php echo $daftar["nama"] ?></td>
                     <td><?php echo $daftar["umur"] ?></td>
+
                     <td><?php
-                            if($daftar["umur"] < 20){
-                                echo "Remaja";
-                            }elseif($daftar["umur"] >= 20 && $daftar["umur"] < 40){
+                            if($daftar["umur"] <= 20){
+                                echo "anak anakk";
+                            }elseif($daftar["umur"] >= 20 && $daftar["umur"] < 30){
+                                echo "remaja";
+                            }elseif($daftar["umur"] >= 30 && $daftar["umur"] < 40){
                                 echo "Dewasa";
                             }elseif($daftar["umur"] >= 40){
                                 echo "tua";

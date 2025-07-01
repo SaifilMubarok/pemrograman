@@ -21,7 +21,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                 align-items: center;
                 height: 100vh;
                 background-size: cover;
-                background-image: url("https://cdn.arstechnica.net/wp-content/uploads/2023/06/bliss-update-1440x960.jpg");
+                background-image: url("https://i.ytimg.com/vi/kY6Vacn_WzU/maxresdefault.jpg");
             }
             table{
                 background-color: white;
